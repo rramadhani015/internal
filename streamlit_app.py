@@ -74,7 +74,7 @@ if response_forest.status_code == 200:
 api = openaq.OpenAQ()
 
 def fetch_aqi_data(city='New York'):
-    status, resp = api.measurements(city=city, parameter='pm25', limit=100)
+    status, resp = api.measurements.get(city=city, parameter='pm25', limit=100)
     if status == 200:
         results = resp['results']
         aqi_data = [{'location': r['location'], 'value': r['value'], 'latitude': r['coordinates']['latitude'], 'longitude': r['coordinates']['longitude']} for r in results if 'coordinates' in r]
