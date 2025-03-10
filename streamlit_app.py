@@ -74,14 +74,15 @@ if response_forest.status_code == 200:
 api = openaq.OpenAQ()
 
 def fetch_aqi_data(city='New York'):
-    status, resp = api.measurements.get(city=city, parameter='pm25', limit=100)
-    if status == 200:
-        results = resp['results']
-        aqi_data = [{'location': r['location'], 'value': r['value'], 'latitude': r['coordinates']['latitude'], 'longitude': r['coordinates']['longitude']} for r in results if 'coordinates' in r]
-        return pd.DataFrame(aqi_data)
-    else:
-        st.error("Failed to fetch AQI data.")
-        return pd.DataFrame()
+    # status, resp = api.measurements.get(city=city, parameter='pm25', limit=100)
+    # if status == 200:
+    #     results = resp['results']
+    #     aqi_data = [{'location': r['location'], 'value': r['value'], 'latitude': r['coordinates']['latitude'], 'longitude': r['coordinates']['longitude']} for r in results if 'coordinates' in r]
+    #     return pd.DataFrame(aqi_data)
+    # else:
+    #     st.error("Failed to fetch AQI data.")
+    #     return pd.DataFrame()
+    print("LOL")
 
 df_aqi = fetch_aqi_data()
 
@@ -117,20 +118,21 @@ def create_layer():
         get_line_color=[0, 50, 0, 200],
         pickable=True,
     )
-    aqi_layer = pdk.Layer(
-        "ScatterplotLayer",
-        df_aqi,
-        get_position=["longitude", "latitude"],
-        get_color=[255, 0, 0, 160],
-        get_radius=200,
-        pickable=True,
-    )
+    # aqi_layer = pdk.Layer(
+    #     "ScatterplotLayer",
+    #     df_aqi,
+    #     get_position=["longitude", "latitude"],
+    #     get_color=[255, 0, 0, 160],
+    #     get_radius=200,
+    #     pickable=True,
+    # )
     if view_option == "Tree Density":
         return [hex_layer]
     elif view_option == "Tree Canopy Coverage":
         return [canopy_layer, forest_layer]
     elif view_option == "Air Quality Correlation":
-        return [aqi_layer, canopy_layer, forest_layer]
+        # return [aqi_layer, canopy_layer, forest_layer]
+        print("LOL")
     return []
 
 if not df_trees.empty:
